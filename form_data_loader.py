@@ -33,6 +33,13 @@ class Donor:
             'phone': self.phone
         }
 
+# TODO: Create the following classes:
+# BloodType
+# Donation
+# DonorDonation
+# TODO: Create for each class the get_object function.
+# TODO: Watch the video which describes how ports work in networking.
+
 
 # Singleton design pattern
 class Database:
@@ -90,3 +97,4 @@ class Database:
             for command in split_commands:
                 with db_connection.cursor() as db_cursor:
                     db_cursor.execute(command.replace('\n', ' '))
+
