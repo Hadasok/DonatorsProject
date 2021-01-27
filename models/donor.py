@@ -1,22 +1,27 @@
+from datetime import datetime
+from .blood_type import BloodType
+from .donation import Donation
+
+
 class Donor:
-    def __init__(self, timestamp, email, name, birthdate, gender, blood_type, donations, phone):
-        self.timestamp = timestamp
+
+    def __init__(self, email, name, birthdate, gender, blood_type, donations, phone):
         self.email = email
         self.name = name
-        self.birthdate = birthdate
-        self.gender = gender
-        self.blood_type = blood_type
-        self.donations = donations
+        self.birthdate = datetime.strptime(birthdate, '%Y-%m-%d')
+        self.gender = 1 if gender == 'זכר' else 0
+        self.blood_type = int(BloodType(blood_type))
+        self.donations = [int(Donation(donation)) for donation in donations]
         self.phone = phone
 
+
+
     def get_object(self):
-        return {
-            'timestamp': self.timestamp,
-            'email': self.email,
-            'name': self.name,
-            'birthdate': self.birthdate,
-            'gender': self.gender,
-            'blood_type': self.blood_type,
-            'donations': self.donations,
-            'phone': self.phone
-        }
+        return (
+            self.email,
+            self.name,
+            self.gender,
+            self.birthdate,
+            self.phone,
+            self.blood_type,
+        )

@@ -67,3 +67,20 @@ class Database:
                 with db_connection.cursor() as db_cursor:
                     db_cursor.execute(command.replace('\n', ' '))
 
+    def send_query(query):
+        results = None
+
+        with Database.get_instance().cursor() as db_cursor:
+            db_cursor.execute(query)
+            results = db_cursor.fetchall()
+
+        return results
+
+    def execute_query(query, parameters):
+        with Database.get_instance().cursor() as db_cursor:
+            if parameters:
+                db_cursor.execute(query, parameters)
+            else:
+                db_cursor.execute(query)
+
+

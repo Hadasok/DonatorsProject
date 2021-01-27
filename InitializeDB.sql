@@ -17,7 +17,7 @@ IF NOT EXISTS
 (SELECT [name] FROM sys.tables WHERE [name] = 'Donors')
 CREATE TABLE Donors(
     Email VARCHAR(255) PRIMARY KEY,
-    Name VARCHAR(255),
+    Name NVARCHAR(255),
     Gender BIT,
     BirthDate DATE,
     Phone VARCHAR(255),

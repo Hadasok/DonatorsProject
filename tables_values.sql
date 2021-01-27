@@ -1,7 +1,7 @@
 IF NOT EXISTS
-(SELECT * FROM BloodTypes WHERE ID = 0 AND Blood IS NULL)
+(SELECT * FROM BloodTypes WHERE ID = 0 AND Blood = 'UNKNOWN')
 INSERT INTO BloodTypes
-VALUES (0, NULL);
+VALUES (0, 'UNKNOWN');
 
 IF NOT EXISTS
 (SELECT * FROM BloodTypes WHERE ID = 1 AND Blood = 'A')
@@ -29,11 +29,11 @@ INSERT INTO Donations
 VALUES (1 , N'תרומת דם רגילה', N'תרומת דם רגילה סטנדרטית');
 
 IF NOT EXISTS
-(SELECT * FROM Donations WHERE ID = 1 AND Donation LIKE N'טסיות' AND Description LIKE N'תרומת טסיות (החזרת דם)')
+(SELECT * FROM Donations WHERE ID = 2 AND Donation LIKE N'תרומת טסיות' AND Description LIKE N'תרומת טסיות (החזרת דם)')
 INSERT INTO Donations
-VALUES (2 , N'טסיות', N'תרומת טסיות (החזרת דם)');
+VALUES (2 , N'תרומת טסיות', N'תרומת טסיות (החזרת דם)');
 
 IF NOT EXISTS
-(SELECT * FROM Donations WHERE ID = 1 AND Donation LIKE N'אפרזיס' AND Description LIKE N'תרומת כדוריות דם לבנות')
+(SELECT * FROM Donations WHERE ID = 3 AND Donation LIKE N'תרומת אפרזיס' AND Description LIKE N'תרומת כדוריות דם לבנות')
 INSERT INTO Donations
-VALUES (3 , N'אפרזיס', N'תרומת כדוריות דם לבנות');
+VALUES (3 , N'תרומת אפרזיס', N'תרומת כדוריות דם לבנות');
