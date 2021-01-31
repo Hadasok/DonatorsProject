@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
 from pyngrok import ngrok
 from models.donor import Donor
+from models.donation_request import Request
 from database import Database
+from mailer import Mailer
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
+
 
 @app.route('/api/donor', methods=['POST'])
 def api_add_donor():
@@ -33,13 +36,29 @@ def api_add_donor():
 
 @app.route('/api/donation', methods=['POST'])
 def api_request_donation():
-    pass
+    request_values = request.get_json(force=True)
 
-@app.route('/api/test', methods=['GET'])
-def api_test():
-    return 'Test!', 200
+    request_values_parsed = Request(
+        description=request_values['description'],
+        blood_types=request_values['blood_types'],
+        phone=request_values['phone'],
+        donations=request_values['donations'],
+        email=request_values['email'],
+        date=request_values['date']
+    )
 
+    sql_query = request_values_parsed.create_sql_query()
+    print(sql_query)
+    donors_details = Database.send_query(sql_query)
+    for donor in donors_details:
+        Mailer.send_mail(
+            donor.Email,
+            'התקבלה בקשה לתרומה ממאגר התורמים',
+            ('שלום, ' + '{}').format(donor.Name) + '\n\n' +
+            str(request_values_parsed)
+        )
 
+    return '', 200
 
 # Start ngrok.
 url = ngrok.connect(5000)
