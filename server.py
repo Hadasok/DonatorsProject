@@ -54,7 +54,7 @@ def api_request_donation():
         Mailer.send_mail(
             donor.Email,
             'התקבלה בקשה לתרומה ממאגר התורמים',
-            ('שלום, ' + '{}').format(donor.Name) + '\n\n' +
+            ('שלום, ' + '{}').format(donor.Name) + '<br><br>' +
             str(request_values_parsed)
         )
 

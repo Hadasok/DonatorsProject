@@ -66,19 +66,19 @@ class Request:
         for index in range(1, len(self.donations)):
             donation_str += ', ' + self.donations[index].donation
 
-        return ('{}' + '\n\n' + 'תיאור התרומה:' + '\n' + '{}').format(donation_str, self.description)
+        return ('{}' + '<br><br>' + 'תיאור התרומה:' + '<br>' + '{}').format(donation_str, self.description)
 
     def get_contact_details(self):
-        return '{}\n{}'.format(self.phone, self.email)
+        return '{}<br>{}'.format(self.phone, self.email)
 
     def __repr__(self):
         donation_request_details = (
-            'נודה להתגייסותך לתרומת דם נדרשת:' + '\n\n' +
-            '{}' + '\n\n' +
-            'הבקשה בתוקף עד תאריך:' + '\n' +
-            '{}' + '\n\n' +
-            'פרטים ליצירת קשר:'+ '\n' +
-            '{}' + '\n\n' +
+            'נודה להתגייסותך לתרומת דם נדרשת:' + '<br><br>' +
+            '{}.' + '<br><br>' +
+            'הבקשה בתוקף עד תאריך:' + '<br>' +
+            '{}' + '<br><br>' +
+            'פרטים ליצירת קשר:' + '<br>' +
+            '{}' + '<br><br>' +
             'תודה על היותך חלק ממאגר התורמים.'
         ).format(self.get_donation_description(), self.date, self.get_contact_details())
 

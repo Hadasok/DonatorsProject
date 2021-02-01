@@ -1,5 +1,7 @@
 import smtplib
 import ssl
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 class Mailer:
@@ -30,11 +32,13 @@ class Mailer:
         return connection
 
     def send_mail(recipient, subject, content):
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = subject
+        msg['From'] = Mailer.__mail_address
+        msg['To'] = recipient
         mail_message = (
-            'From: {}\n' +
-            'To: {}\n' +
-            'Subject: {}\n\n' +
             '<html><body><div dir="rtl">{}</div></body></html>'
-        ).format(Mailer.__mail_address, recipient, subject, content).encode('utf8')
+        ).format(content)
+        msg.attach(MIMEText(mail_message, 'html'))
 
-        Mailer.__get_instance().sendmail(Mailer.__mail_address, recipient, mail_message)
+        Mailer.__get_instance().sendmail(Mailer.__mail_address, recipient, msg.as_string())
